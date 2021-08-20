@@ -26,6 +26,9 @@ class Toc extends Component{
       <li>
         <a href="">시잉</a>
       </li>
+      <li>
+        <a href="">고</a>
+      </li>
     </ul>
   </nav>
     )
