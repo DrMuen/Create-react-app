@@ -1,17 +1,13 @@
 import React,{ Component } from 'react';
-
-function Welcome(props){
-    return <h2>나는 {props.name}</h2>;
-  }
   
   class Subject extends Component{
     render(){
       return(
       <header>
-         <h2>{this.props.self}</h2>
-        <Welcome name="뮨이야⭐️"></Welcome>
+         <h2><a href="/">{this.props.self}</a></h2>
       </header>
       )
     }
   }
+  
   export default Subject;

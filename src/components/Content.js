@@ -4,9 +4,10 @@ class Content extends Component{
     render(){
       return(
         <article>
-        <div>😔문정이는 외롭다.</div>
+        <div>😔{this.props.name}이는 외롭다.</div>
     </article>
       )
     }
   }
+  
   export default Content;

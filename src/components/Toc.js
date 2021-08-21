@@ -1,26 +1,22 @@
 import React,{Component} from'react';
+
 class Toc extends Component{
     render(){
+      var list = [];
+      var link = this.props.link;
+      let i = 0;
+      while(i < link.length){
+        list.push(<li key={link[i].id}><a href={"/content/" + link[i].id}>{link[i].title}</a></li>)
+        i = i + 1;
+      }
       return(
         <nav>
       <ul>
-        <li>
-          <a href="">먕</a>
-        </li>
-        <li>
-          <a href="">믹</a>
-        </li>
-        <li>
-          <a href="">시잉</a>
-        </li>
-        <li>
-          <a href="">고</a>
-        </li>
+         {list}
       </ul>
     </nav>
       )
     }
   }
-  
 
   export  default Toc;
