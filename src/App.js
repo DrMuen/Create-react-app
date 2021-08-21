@@ -7,7 +7,7 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
       mode:"welcome",
       welcome:{title:"welcome",sub:"집으로 돌아온 걸 칭찬해"},
       subject: { self: "안녕,난 뮨이야," },
