@@ -1,16 +1,22 @@
 import { Component } from 'react';
 import './App.css';
 
+function Welcome(props){
+  return <h2>나는 {props.name}</h2>;
+}
+
+
 class Subject extends Component{
   render(){
     return(
     <header>
-      <h2>저기,</h2>
-     <h3>나는 뮨이야☺️</h3>
+       <h2>{this.props.self}</h2>
+      <Welcome name="뮨이야☺"></Welcome>
     </header>
     )
   }
 }
+
 
 class Toc extends Component{
   render(){
@@ -50,7 +56,7 @@ class App extends Component{
    return (
    <div className="App">
       <h1>😉안녕,뮨.</h1>
-      <Subject></Subject>
+      <Subject self="저기," welcome="저기,"></Subject>
       <Toc></Toc>
       <Content></Content>
     </div>
