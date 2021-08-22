@@ -2,7 +2,6 @@ import React,{ Component } from 'react';
   
   class Subject extends Component{
     render(){
-      console.log(2);
       return(
       <header>
          <h2><a href="/" onClick={(sexy) =>{
