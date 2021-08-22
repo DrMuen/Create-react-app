@@ -8,8 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      mode:"welcome",
-      welcome:{title:"welcome",sub:"집으로 돌아온 걸 칭찬해"},
+      mode:"read",
+      welcome:{title:"welcome",desc:"집으로 돌아온 걸 칭찬해"},
       subject: { self: "안녕,난 뮨이야," },
       content: { name: "문정" },
       toc:[
@@ -21,12 +21,26 @@ class App extends Component {
     };
   }
   render() {
+    console.log(1);
+      var _title, _desc = null;
+    if(this.state.mode === "welcome"){
+      _title = this.state.welcome.title;
+      _desc = this.state.welcome.desc;
+    }else if(this.state.mode=== "read"){
+      _title = this.state.toc[0].title;
+      _desc = this.state.toc[0].desc;
+    };
+    console.log('즐겁다',this);
     return (
       <div className="App">
         <h1>😉안녕,뮨.</h1>
-        <Subject self={this.state.subject.self}></Subject>
+        <Subject self={this.state.subject.self}
+        onChangePage = {(sexy) => {
+          this.setState({mode : sexy})  
+        }}
+        ></Subject>
         <Toc link={this.state.toc}></Toc>
-        <Content name={this.state.content.name}></Content>
+        <Content name={_title} desc={_desc}></Content>
       </div>
     );
   }

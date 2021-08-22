@@ -2,9 +2,11 @@ import React,{Component} from'react';
 
 class Content extends Component{
     render(){
+      console.log(4)
       return(
         <article>
-        <div>😔{this.props.name}이는 외롭다.</div>
+        <h2>{this.props.name}</h2>
+        <div>{this.props.desc}☺️</div>
     </article>
       )
     }

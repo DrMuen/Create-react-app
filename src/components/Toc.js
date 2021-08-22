@@ -2,6 +2,7 @@ import React,{Component} from'react';
 
 class Toc extends Component{
     render(){
+      console.log(3);
       var list = [];
       var link = this.props.link;
       let i = 0;
