@@ -7,7 +7,7 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
       mode: "read",
       selected_content_id: 1,
       welcome: { title: "welcome", desc: "집으로 돌아온 걸 칭찬해" },
@@ -23,8 +23,8 @@ class App extends Component {
   }
   render() {
     console.log(1);
-    var _title, 
-    _desc = null;
+    var _title,
+      _desc = null;
     if (this.state.mode === "welcome") {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
@@ -49,9 +49,9 @@ class App extends Component {
           }}
         ></Subject>
         <Toc
-          link={this.state.toc}
-          onChangePage={() => {
-            this.setState({ mode: "read" });
+          data={this.state.toc}
+          onChangePage={(id) => { 
+            this.setState({ mode: "read", selected_content_id: Number(id) });
           }}
         ></Toc>
         <Content name={_title} desc={_desc}></Content>

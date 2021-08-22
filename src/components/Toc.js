@@ -3,19 +3,20 @@ import React, { Component } from "react";
 class Toc extends Component {
   render() {
     var list = [];
-    var link = this.props.link;
+    var data = this.props.data;
     let i = 0;
-    while (i < link.length) {
+    while (i < data.length) {
       list.push(
-        <li key={link[i].id}>
+        <li key={data[i].id}>
           <a
-            href={"/content/" + link[i].id}
+            href={"/content/" + data[i].id}
+            data-id = {data[i].id}
             onClick={(sexy) => {
               sexy.preventDefault();
-              this.props.onChangePage();
+              this.props.onChangePage(sexy.target.dataset.id);
             }}
           >
-            {link[i].title}
+            {data[i].title}
           </a>
         </li>
       );
