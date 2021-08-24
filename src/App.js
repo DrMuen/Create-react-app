@@ -2,15 +2,18 @@ import React, { Component } from "react";
 import Subject from "./components/Subject";
 import Toc from "./components/Toc";
 import ReadContent from "./components/ReadContent";
-import CreateContent from './components/CreateContent'
+import CreateContent from './components/CreateContent';
+import UpdateContent from './components/UpdateContent';
 import Control from "./components/Control";
 import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.max_content_id = 4;
     this.state = { 
-      mode: "read",
+      max_content_id : 4,
+      mode: "create",
       selected_content_id: 1,
       welcome: { title: "welcome", desc: "집으로 돌아온 걸 칭찬해" },
       subject: { self: "안녕,난 뮨이야," },
@@ -23,8 +26,19 @@ class App extends Component {
       ],
     };
   }
-  render() {
-    var _title,
+    getReadContent(){
+      var i = 0;
+      while (i < this.state.toc.length) {
+        var data = this.state.toc[i]
+        if (this.state.toc[i].id === this.state.selected_content_id) {
+          return data;
+          break;
+        }
+        i = i + 1;
+      }
+    }
+    getContent(){
+      var _title,
       _desc,
       _article = null;
     if (this.state.mode === "welcome") {
@@ -32,19 +46,25 @@ class App extends Component {
       _desc = this.state.welcome.desc;
       _article =<ReadContent title={_title} desc={_desc}></ReadContent>
     } else if (this.state.mode === "read") {
-      var i = 0;
-      while (i < this.state.toc.length) {
-        if (this.state.toc[i].id === this.state.selected_content_id) {
-          _title = this.state.toc[i].title;
-          _desc = this.state.toc[i].desc;
-          _article =<ReadContent title={_title} desc={_desc}></ReadContent> 
-          break;
-        }
-        i = i + 1;
-      }
+       var _content=this.getReadContent();
+      _article =<ReadContent title={_content.title} desc={_content.desc}></ReadContent> 
     }else if(this.state.mode === "create"){
-      _article = <CreateContent></CreateContent>
+      _article = <CreateContent onSubmit={(_title,_desc)=>{this.max_content_id = this.max_content_id + 1;
+                                                           var _toc = this.state.toc.concat(
+                                                             {id:this.max_content_id,title:_title,desc:_desc})
+                                                           this.setState({toc:_toc})}}></CreateContent>
+  }else if(this.state.mode === "update"){
+    var _content = this.getReadContent();
+    _article = <UpdateContent data={_content} onSubmit={(_title,_desc)=>{this.max_content_id = this.max_content_id + 1;
+      var _toc = this.state.toc.concat(
+        {id:this.max_content_id,title:_title,desc:_desc})
+      this.setState({toc:_toc})}}></UpdateContent>
   }
+    return _article;
+    }
+
+
+  render() {  
     return (
       <div className="App">
         <h1>😉안녕,뮨.</h1>
@@ -64,7 +84,7 @@ class App extends Component {
            this.setState({mode: _mode})
         }}></Control>
         {/* <ReadContent name={_title} desc={_desc}></ReadContent> */}
-        {_article}
+        {this.getContent()};
       </div>
     );
   }
