@@ -84,7 +84,7 @@ class App extends Component {
            this.setState({mode: _mode})
         }}></Control>
         {/* <ReadContent name={_title} desc={_desc}></ReadContent> */}
-        {this.getContent()};
+        {this.getContent()}
       </div>
     );
   }
