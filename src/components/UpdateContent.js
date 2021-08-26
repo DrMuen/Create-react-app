@@ -4,6 +4,7 @@ class UpdateContent extends Component {
   constructor(props){
     super(props);
     this.state = {
+      id:this.props.data.id,
       title:this.props.data.title,
       desc:this.props.data.desc,
     }
@@ -26,11 +27,13 @@ class UpdateContent extends Component {
           onSubmit={(berry) => {
             berry.preventDefault();
             this.props.onSubmit(
-              berry.target.title.value,
-              berry.target.desc.value,
+              this.state.id,
+              this.state.title,
+              this.state.desc
             );
           }}
         >
+          <input type="hidden" name="id" value={this.state.id}></input>
           <p>
             <input type="text" name="title" placeholder="Miiien" value={this.state.title} onChange={this.inputFormHandler}></input>
           </p>

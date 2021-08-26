@@ -34,7 +34,7 @@ class Toc extends Component {
       <nav>
         <ul>{list}</ul>
       </nav>
-    );
+    )
   }
 }
 

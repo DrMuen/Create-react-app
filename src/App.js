@@ -13,7 +13,7 @@ class App extends Component {
     this.max_content_id = 4;
     this.state = { 
       max_content_id : 4,
-      mode: "create",
+      mode: "welcome",
       selected_content_id: 1,
       welcome: { title: "welcome", desc: "집으로 돌아온 걸 칭찬해" },
       subject: { self: "안녕,난 뮨이야," },
@@ -46,19 +46,31 @@ class App extends Component {
       _desc = this.state.welcome.desc;
       _article =<ReadContent title={_title} desc={_desc}></ReadContent>
     } else if (this.state.mode === "read") {
-       var _content=this.getReadContent();
+       var _content=this.getReadContent()
       _article =<ReadContent title={_content.title} desc={_content.desc}></ReadContent> 
     }else if(this.state.mode === "create"){
       _article = <CreateContent onSubmit={(_title,_desc)=>{this.max_content_id = this.max_content_id + 1;
                                                            var _toc = this.state.toc.concat(
-                                                             {id:this.max_content_id,title:_title,desc:_desc})
-                                                           this.setState({toc:_toc})}}></CreateContent>
+                                                           {id:this.max_content_id,title:_title,desc:_desc})
+                                                           this.setState({toc:_toc,
+                                                                          mode:'read',
+                                                                          selected_content_id:this.max_content_id,
+                                                          })}}></CreateContent>
   }else if(this.state.mode === "update"){
     var _content = this.getReadContent();
-    _article = <UpdateContent data={_content} onSubmit={(_title,_desc)=>{this.max_content_id = this.max_content_id + 1;
-      var _toc = this.state.toc.concat(
-        {id:this.max_content_id,title:_title,desc:_desc})
-      this.setState({toc:_toc})}}></UpdateContent>
+    _article = <UpdateContent data={_content} onSubmit={(_id,_title,_desc)=>{
+      var _tocs = Array.from(this.state.toc)
+      var i = 0
+      while(i < _tocs.length){
+        if(_tocs[i].id === _id){
+          _tocs[i] = { id:_id, title:_title, desc:_desc};  
+          break;
+         }
+         i = i + 1;
+      }
+      this.setState({toc:_tocs,
+                     mode:"read",
+      })}}></UpdateContent>
   }
     return _article;
     }
@@ -86,7 +98,7 @@ class App extends Component {
         {/* <ReadContent name={_title} desc={_desc}></ReadContent> */}
         {this.getContent()}
       </div>
-    );
+    )
   }
 }
 export default App;
