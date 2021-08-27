@@ -57,8 +57,8 @@ class App extends Component {
                                                                           selected_content_id:this.max_content_id,
                                                           })}}></CreateContent>
   }else if(this.state.mode === "update"){
-    var _content = this.getReadContent();
-    _article = <UpdateContent data={_content} onSubmit={(_id,_title,_desc)=>{
+    var _contents = this.getReadContent();
+    _article = <UpdateContent data={_contents} onSubmit={(_id,_title,_desc)=>{
       var _tocs = Array.from(this.state.toc)
       var i = 0
       while(i < _tocs.length){
@@ -92,9 +92,26 @@ class App extends Component {
             this.setState({ mode: "read", selected_content_id: Number(id) });
           }}
         ></Toc>
-        <Control onChangeMode={(_mode) => {
-           this.setState({mode: _mode})
-        }}></Control>
+        <Control onChangeMode={function(_mode){
+          if(_mode ==='delete'){
+            if(window.confirm('really?')){
+              var i = 0;
+              while(i < this.state.toc.length){
+                var _toc = Array.from(this.state.toc);
+                if(_toc[i].id === this.state.selected_content_id){
+                  _toc.splice(i,1);
+                  break; 
+                }
+                i = i + 1;
+              }
+              this.setState({
+                mode:'welcome',
+                toc:_toc,
+              })
+              alert('delete')
+            }
+          }else{this.setState({mode: _mode})}
+        }.bind(this)}></Control>
         {/* <ReadContent name={_title} desc={_desc}></ReadContent> */}
         {this.getContent()}
       </div>
